@@ -43,8 +43,26 @@ const AdmissionFormModal = ({ isOpen, onClose, academicLevel }) => {
     }
   }, [toast]);
 
+  const numericFields = new Set([
+    "aadhaarNumber",
+    "mobileNumber",
+    "alternateMobileNumber",
+    "pinCode",
+    "fatherMobileNumber",
+    "motherMobileNumber",
+    "annualFamilyIncome",
+  ]);
+
   const update = (e) => {
-    const { name, value } = e.target;
+    const { name } = e.target;
+    let { value } = e.target;
+
+    // Allow only numeric input for specific fields
+    // \D matches any non-digit character (anything except 0-9)
+    // Replace all non-digits with empty string to ensure only numbers remain
+    if (numericFields.has(name)) {
+      value = value.replace(/\D/g, "");
+    }
 
     setForm((f) => {
       const updated = { ...f, [name]: value };
@@ -77,8 +95,81 @@ const AdmissionFormModal = ({ isOpen, onClose, academicLevel }) => {
     }
   };
 
+  const validateNumericFields = () => {
+    const errors = [];
+
+    // Validate Mobile Number (required)
+    if (!form.mobileNumber || !/^\d+$/.test(form.mobileNumber)) {
+      errors.push("Mobile Number must contain only digits");
+    } else if (form.mobileNumber.length !== 10) {
+      errors.push("Mobile Number must be exactly 10 digits");
+    }
+
+    // Validate Alternate Mobile Number (optional, but if provided must be numeric)
+    if (
+      form.alternateMobileNumber &&
+      !/^\d+$/.test(form.alternateMobileNumber)
+    ) {
+      errors.push("Alternate Mobile Number must contain only digits");
+    } else if (
+      form.alternateMobileNumber &&
+      form.alternateMobileNumber.length !== 10
+    ) {
+      errors.push("Alternate Mobile Number must be exactly 10 digits");
+    }
+
+    // Validate Father Mobile Number (optional, but if provided must be numeric)
+    if (form.fatherMobileNumber && !/^\d+$/.test(form.fatherMobileNumber)) {
+      errors.push("Father's Mobile Number must contain only digits");
+    } else if (
+      form.fatherMobileNumber &&
+      form.fatherMobileNumber.length !== 10
+    ) {
+      errors.push("Father's Mobile Number must be exactly 10 digits");
+    }
+
+    // Validate Mother Mobile Number (optional, but if provided must be numeric)
+    if (form.motherMobileNumber && !/^\d+$/.test(form.motherMobileNumber)) {
+      errors.push("Mother's Mobile Number must contain only digits");
+    } else if (
+      form.motherMobileNumber &&
+      form.motherMobileNumber.length !== 10
+    ) {
+      errors.push("Mother's Mobile Number must be exactly 10 digits");
+    }
+
+    // Validate Annual Family Income (optional, but if provided must be numeric)
+    if (form.annualFamilyIncome && !/^\d+$/.test(form.annualFamilyIncome)) {
+      errors.push("Annual Family Income must contain only digits");
+    }
+
+    // Validate Aadhaar Number (optional, but if provided must be numeric and 12 digits)
+    if (form.aadhaarNumber && !/^\d+$/.test(form.aadhaarNumber)) {
+      errors.push("Aadhaar Number must contain only digits");
+    } else if (form.aadhaarNumber && form.aadhaarNumber.length !== 12) {
+      errors.push("Aadhaar Number must be exactly 12 digits");
+    }
+
+    // Validate Pin Code (required)
+    if (!form.pinCode || !/^\d+$/.test(form.pinCode)) {
+      errors.push("Pin Code must contain only digits");
+    } else if (form.pinCode.length !== 6) {
+      errors.push("Pin Code must be exactly 6 digits");
+    }
+
+    return errors;
+  };
+
   const submit = (e) => {
     e.preventDefault();
+
+    // Validate numeric fields
+    const validationErrors = validateNumericFields();
+    if (validationErrors.length > 0) {
+      setToast(validationErrors[0]); // Show first error
+      return;
+    }
+
     setLoading(true);
 
     // Simulate form submission - data not saved to database
@@ -101,7 +192,11 @@ const AdmissionFormModal = ({ isOpen, onClose, academicLevel }) => {
     <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
       {/* Toast Notification */}
       {toast && (
-        <div className="fixed top-4 right-4 bg-emerald-500 text-white px-6 py-3 rounded-lg shadow-lg z-60 animate-slide-in">
+        <div
+          className={`fixed top-4 right-4 ${
+            toast.includes("successfully") ? "bg-emerald-500" : "bg-red-500"
+          } text-white px-6 py-3 rounded-lg shadow-lg z-60 animate-slide-in`}
+        >
           {toast}
         </div>
       )}
@@ -296,6 +391,9 @@ const AdmissionFormModal = ({ isOpen, onClose, academicLevel }) => {
                   Aadhaar Number
                 </label>
                 <input
+                  type="tel"
+                  inputMode="numeric"
+                  pattern="\\d*"
                   name="aadhaarNumber"
                   value={form.aadhaarNumber}
                   onChange={update}
@@ -349,6 +447,9 @@ const AdmissionFormModal = ({ isOpen, onClose, academicLevel }) => {
                   <span className="text-red-500">*</span>
                 </label>
                 <input
+                  type="tel"
+                  inputMode="numeric"
+                  pattern="\\d*"
                   name="mobileNumber"
                   value={form.mobileNumber}
                   onChange={update}
@@ -363,6 +464,9 @@ const AdmissionFormModal = ({ isOpen, onClose, academicLevel }) => {
                   Alternate Mobile Number
                 </label>
                 <input
+                  type="tel"
+                  inputMode="numeric"
+                  pattern="\\d*"
                   name="alternateMobileNumber"
                   value={form.alternateMobileNumber}
                   onChange={update}
@@ -472,6 +576,9 @@ const AdmissionFormModal = ({ isOpen, onClose, academicLevel }) => {
                   Pin Code <span className="text-red-500">*</span>
                 </label>
                 <input
+                  type="tel"
+                  inputMode="numeric"
+                  pattern="\\d*"
                   name="pinCode"
                   value={form.pinCode}
                   onChange={update}
@@ -520,6 +627,9 @@ const AdmissionFormModal = ({ isOpen, onClose, academicLevel }) => {
                   Father Mobile Number
                 </label>
                 <input
+                  type="tel"
+                  inputMode="numeric"
+                  pattern="\\d*"
                   name="fatherMobileNumber"
                   value={form.fatherMobileNumber}
                   onChange={update}
@@ -561,6 +671,9 @@ const AdmissionFormModal = ({ isOpen, onClose, academicLevel }) => {
                   Mother Mobile Number
                 </label>
                 <input
+                  type="tel"
+                  inputMode="numeric"
+                  pattern="\\d*"
                   name="motherMobileNumber"
                   value={form.motherMobileNumber}
                   onChange={update}
@@ -589,6 +702,9 @@ const AdmissionFormModal = ({ isOpen, onClose, academicLevel }) => {
                   Annual Family Income
                 </label>
                 <input
+                  type="tel"
+                  inputMode="numeric"
+                  pattern="\\d*"
                   name="annualFamilyIncome"
                   value={form.annualFamilyIncome}
                   onChange={update}

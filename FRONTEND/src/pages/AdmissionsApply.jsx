@@ -40,8 +40,23 @@ const AdmissionsApply = () => {
   const [success, setSuccess] = useState("");
   const [sameAsPermanent, setSameAsPermanent] = useState(false);
 
+  const numericFields = new Set([
+    "mobileNumber",
+    "alternateMobileNumber",
+    "fatherMobileNumber",
+    "motherMobileNumber",
+    "annualFamilyIncome",
+    "pinCode",
+    "aadhaarNumber",
+  ]);
+
   const update = (e) => {
-    const { name, value } = e.target;
+    const { name } = e.target;
+    let { value } = e.target;
+
+    if (numericFields.has(name)) {
+      value = value.replace(/\D/g, "");
+    }
 
     // Update the changed field. If permanentAddress changes and checkbox is checked,
     // also update correspondenceAddress to keep them in sync.
@@ -82,6 +97,12 @@ const AdmissionsApply = () => {
     e.preventDefault();
     setError("");
     setSuccess("");
+
+    const validationErrors = validateNumericFields();
+    if (validationErrors.length > 0) {
+      setError(validationErrors[0]);
+      return;
+    }
     setLoading(true);
 
     // Simulate form submission with local data storage
@@ -96,6 +117,65 @@ const AdmissionsApply = () => {
         setLoading(false);
       }
     }, 500);
+  };
+
+  const validateNumericFields = () => {
+    const errors = [];
+
+    // Mobile Number (required, 10 digits)
+    if (!form.mobileNumber || !/^\d+$/.test(form.mobileNumber)) {
+      errors.push("Mobile Number must contain only digits");
+    } else if (form.mobileNumber.length !== 10) {
+      errors.push("Mobile Number must be exactly 10 digits");
+    }
+
+    // Alternate Mobile Number (optional, 10 digits if provided)
+    if (
+      form.alternateMobileNumber &&
+      !/^\d+$/.test(form.alternateMobileNumber)
+    ) {
+      errors.push("Alternate Mobile Number must contain only digits");
+    } else if (
+      form.alternateMobileNumber &&
+      form.alternateMobileNumber.length !== 10
+    ) {
+      errors.push("Alternate Mobile Number must be exactly 10 digits");
+    }
+
+    // Father's Mobile Number (required, 10 digits)
+    if (!form.fatherMobileNumber || !/^\d+$/.test(form.fatherMobileNumber)) {
+      errors.push("Father's Mobile Number must contain only digits");
+    } else if (form.fatherMobileNumber.length !== 10) {
+      errors.push("Father's Mobile Number must be exactly 10 digits");
+    }
+
+    // Mother's Mobile Number (required, 10 digits)
+    if (!form.motherMobileNumber || !/^\d+$/.test(form.motherMobileNumber)) {
+      errors.push("Mother's Mobile Number must contain only digits");
+    } else if (form.motherMobileNumber.length !== 10) {
+      errors.push("Mother's Mobile Number must be exactly 10 digits");
+    }
+
+    // Annual Family Income (optional, digits only)
+    if (form.annualFamilyIncome && !/^\d+$/.test(form.annualFamilyIncome)) {
+      errors.push("Annual Family Income must contain only digits");
+    }
+
+    // Pin Code (required, 6 digits)
+    if (!form.pinCode || !/^\d+$/.test(form.pinCode)) {
+      errors.push("Pin Code must contain only digits");
+    } else if (form.pinCode.length !== 6) {
+      errors.push("Pin Code must be exactly 6 digits");
+    }
+
+    // Aadhaar Number (optional, 12 digits if provided)
+    if (form.aadhaarNumber && !/^\d+$/.test(form.aadhaarNumber)) {
+      errors.push("Aadhaar Number must contain only digits");
+    } else if (form.aadhaarNumber && form.aadhaarNumber.length !== 12) {
+      errors.push("Aadhaar Number must be exactly 12 digits");
+    }
+
+    return errors;
   };
 
   useEffect(() => {
@@ -292,6 +372,9 @@ const AdmissionsApply = () => {
                     Aadhaar Number
                   </label>
                   <input
+                    type="tel"
+                    inputMode="numeric"
+                    pattern="\d*"
                     name="aadhaarNumber"
                     value={form.aadhaarNumber}
                     onChange={update}
@@ -345,10 +428,13 @@ const AdmissionsApply = () => {
                   </label>
                   <input
                     type="tel"
+                    inputMode="numeric"
+                    pattern="\d*"
                     name="mobileNumber"
                     value={form.mobileNumber}
                     onChange={update}
                     required
+                    maxLength="10"
                     className="mt-1 w-full rounded-md border border-slate-300 px-3 py-2 focus:border-indigo-500 focus:outline-none"
                   />
                 </div>
@@ -358,9 +444,12 @@ const AdmissionsApply = () => {
                   </label>
                   <input
                     type="tel"
+                    inputMode="numeric"
+                    pattern="\d*"
                     name="alternateMobileNumber"
                     value={form.alternateMobileNumber}
                     onChange={update}
+                    maxLength="10"
                     className="mt-1 w-full rounded-md border border-slate-300 px-3 py-2 focus:border-indigo-500 focus:outline-none"
                   />
                 </div>
@@ -460,6 +549,9 @@ const AdmissionsApply = () => {
                     Pin Code <span className="text-red-500">*</span>
                   </label>
                   <input
+                    type="tel"
+                    inputMode="numeric"
+                    pattern="\d*"
                     name="pinCode"
                     value={form.pinCode}
                     onChange={update}
@@ -507,10 +599,13 @@ const AdmissionsApply = () => {
                   </label>
                   <input
                     type="tel"
+                    inputMode="numeric"
+                    pattern="\d*"
                     name="fatherMobileNumber"
                     value={form.fatherMobileNumber}
                     onChange={update}
                     required
+                    maxLength="10"
                     className="mt-1 w-full rounded-md border border-slate-300 px-3 py-2 focus:border-indigo-500 focus:outline-none"
                   />
                 </div>
@@ -553,10 +648,13 @@ const AdmissionsApply = () => {
                   </label>
                   <input
                     type="tel"
+                    inputMode="numeric"
+                    pattern="\d*"
                     name="motherMobileNumber"
                     value={form.motherMobileNumber}
                     onChange={update}
                     required
+                    maxLength="10"
                     className="mt-1 w-full rounded-md border border-slate-300 px-3 py-2 focus:border-indigo-500 focus:outline-none"
                   />
                 </div>
@@ -585,6 +683,9 @@ const AdmissionsApply = () => {
                     Annual Family Income
                   </label>
                   <input
+                    type="tel"
+                    inputMode="numeric"
+                    pattern="\d*"
                     name="annualFamilyIncome"
                     value={form.annualFamilyIncome}
                     onChange={update}
