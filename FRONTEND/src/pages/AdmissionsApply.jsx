@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import SectionTitle from "../components/SectionTitle";
 import { addAdmission } from "../data/staticData";
 import HeroWaveSection from "../components/HeroWaveSection";
@@ -107,11 +107,34 @@ const AdmissionsApply = () => {
   return (
     <>
       <title>Apply For Admission | Holy Redeemer School</title>
+
+      {/* Toast Notification */}
+      {success && (
+        <div className="fixed top-4 right-4 z-50 animate-slide-in">
+          <div className="bg-emerald-500 text-white px-6 py-4 rounded-lg shadow-lg flex items-center gap-3">
+            <svg
+              className="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
+            </svg>
+            <span className="font-medium">{success}</span>
+          </div>
+        </div>
+      )}
+
       <div className="bg-white">
         <HeroWaveSection
           eyebrow="Apply Online"
           title="Admission Application"
-          subtitle="Complete the secure form below to reserve your child’s seat for the upcoming academic year."
+          subtitle="Complete the secure form below to reserve your child's seat for the upcoming academic year."
         />
         <div className="max-w-4xl mx-auto p-6">
           <SectionTitle title="Admission Application" />
@@ -119,11 +142,6 @@ const AdmissionsApply = () => {
             {error && (
               <div className="rounded-md bg-red-50 p-3 text-red-600">
                 {error}
-              </div>
-            )}
-            {success && (
-              <div className="rounded-md bg-emerald-50 p-3 text-emerald-600">
-                {success}
               </div>
             )}
 
@@ -590,6 +608,22 @@ const AdmissionsApply = () => {
           </form>
         </div>
       </div>
+
+      <style>{`
+        @keyframes slide-in {
+          from {
+            transform: translateX(100%);
+            opacity: 0;
+          }
+          to {
+            transform: translateX(0);
+            opacity: 1;
+          }
+        }
+        .animate-slide-in {
+          animation: slide-in 0.3s ease-out;
+        }
+      `}</style>
     </>
   );
 };

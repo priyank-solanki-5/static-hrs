@@ -243,7 +243,7 @@ export const activitiesData = [
     category: "co-curricular",
     description: "Build and program robots to solve real-world problems.",
     image:
-      "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=800&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=800&h=600&fit=crop",
     schedule: "Every Wednesday, 4:00 PM - 5:30 PM",
     coordinator: "Mr. Rajesh Kumar",
     grade: "6-12",
@@ -255,7 +255,7 @@ export const activitiesData = [
     category: "co-curricular",
     description: "Develop public speaking and argumentation skills.",
     image:
-      "https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=800&h=600&fit=crop",
     schedule: "Every Monday, 3:30 PM - 5:00 PM",
     coordinator: "Mrs. Meera Singh",
     grade: "8-12",
@@ -268,7 +268,7 @@ export const activitiesData = [
     description:
       "Explore scientific concepts through experiments and activities.",
     image:
-      "https://images.unsplash.com/photo-1516321318423-f06f70d504f0?w=800&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1532094349884-543bc11b234d?w=800&h=600&fit=crop",
     schedule: "Every Thursday, 4:00 PM - 5:30 PM",
     coordinator: "Dr. Arun Patel",
     grade: "6-12",
@@ -280,7 +280,7 @@ export const activitiesData = [
     category: "extra-curricular",
     description: "Play and learn the sport of cricket at competitive levels.",
     image:
-      "https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=800&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1531415074968-036ba1b575da?w=800&h=600&fit=crop",
     schedule: "Monday to Friday, 4:30 PM - 6:00 PM",
     coordinator: "Mr. Vikram Kumar",
     grade: "6-12",
@@ -292,7 +292,7 @@ export const activitiesData = [
     category: "extra-curricular",
     description: "Join our basketball team and compete at school level.",
     image:
-      "https://images.unsplash.com/photo-1546519638-68711109d298?w=800&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1504450758481-7338eba7524a?w=800&h=600&fit=crop",
     schedule: "Tuesday and Thursday, 4:30 PM - 6:00 PM",
     coordinator: "Coach Arjun Singh",
     grade: "9-12",
@@ -304,7 +304,7 @@ export const activitiesData = [
     category: "curricular",
     description: "Express creativity through painting, drawing, and sculpture.",
     image:
-      "https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?w=800&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=800&h=600&fit=crop",
     schedule: "Every Wednesday, 2:30 PM - 4:00 PM",
     coordinator: "Mrs. Priya Sharma",
     grade: "6-12",

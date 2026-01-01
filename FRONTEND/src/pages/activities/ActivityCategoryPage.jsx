@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { getActivitiesByCategory } from "../../data/staticData";
 import SectionTitle from "../../components/SectionTitle.jsx";
 import { motion } from "framer-motion";
@@ -57,16 +57,17 @@ const ActivityCategoryPage = ({ categoryKey }) => {
       setLoading(true);
       setError("");
       try {
-        const response = await axios.get(`/activities?category=${categoryKey}`);
+        // Simulate API delay
+        await new Promise((resolve) => setTimeout(resolve, 500));
+
         if (isMounted) {
-          const { data = [] } = response.data || {};
+          const data = getActivitiesByCategory(categoryKey);
           setActivities(Array.isArray(data) ? data : []);
         }
       } catch (err) {
         if (isMounted) {
           setError(
-            err?.response?.data?.message ||
-              "We couldn't load the activities right now. Please try again later."
+            "We couldn't load the activities right now. Please try again later."
           );
         }
       } finally {

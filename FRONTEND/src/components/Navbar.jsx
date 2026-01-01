@@ -21,11 +21,11 @@ const Navbar = () => {
 
   // Static contact information
   const contactInfo = {
-    phone: "+91 0123456789",
-    email: "example@mail.com",
-    facebookUrl: "#",
-    instagramUrl: "#",
-    linkedinUrl: "#",
+    phone: "+91 90815 44225",
+    email: "holyredeemereng@gmail.com",
+    facebookUrl: "https://www.facebook.com/p/Holy-Redeemer-School-Rajkot-61556159744247/",
+    instagramUrl: "https://www.instagram.com/holyredeemerschoolrajkot/",
+    // linkedinUrl: "#",
   };
 
   const navLinks = [
@@ -95,18 +95,24 @@ const Navbar = () => {
           </div>
           <div className="flex items-center space-x-1">
             <Mail size={16} />
-            <span>{contactInfo.email}</span>
+            <a
+              href={`mailto:${contactInfo.email}`}
+              className="hover:underline"
+              aria-label={`Email ${contactInfo.email}`}
+            >
+              {contactInfo.email}
+            </a>
           </div>
           <div className="flex space-x-4 text-blue-900">
-            <a href={contactInfo.facebookUrl} aria-label="Facebook">
+            <a href={contactInfo.facebookUrl} aria-label="Facebook" target="blank">
               <Facebook size={18} />
             </a>
-            <a href={contactInfo.instagramUrl} aria-label="Instagram">
+            <a href={contactInfo.instagramUrl} aria-label="Instagram" target="blank">
               <Instagram size={18} />
             </a>
-            <a href={contactInfo.linkedinUrl} aria-label="LinkedIn">
+            {/* <a href={contactInfo.linkedinUrl} aria-label="LinkedIn">
               <Linkedin size={18} />
-            </a>
+            </a> */}
           </div>
         </div>
 
@@ -276,7 +282,12 @@ const Navbar = () => {
                   </div>
                   <div className="flex items-center space-x-2">
                     <Mail size={16} />
-                    <span>{contactInfo.email}</span>
+                    <a
+                      href={`mailto:${contactInfo.email}`}
+                      className="hover:underline"
+                    >
+                      {contactInfo.email}
+                    </a>
                   </div>
                   <div className="flex space-x-4 text-blue-900 pt-2">
                     <a href={contactInfo.facebookUrl} aria-label="Facebook">

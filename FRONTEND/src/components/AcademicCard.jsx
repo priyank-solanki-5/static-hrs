@@ -5,6 +5,10 @@ import Card from "./Card";
 const AcademicCard = ({ image, title, subtitle, description }) => {
   const navigate = useNavigate();
 
+  const handleClick = () => {
+    navigate("/admissions/apply");
+  };
+
   return (
     <div className="max-w-md mx-auto">
       <Card
@@ -12,7 +16,7 @@ const AcademicCard = ({ image, title, subtitle, description }) => {
         title={title}
         description={description}
         showGradient={true}
-        onClick={() => navigate("/admissions/apply")}
+        onClick={handleClick}
         className="h-full"
       />
       {subtitle && (
