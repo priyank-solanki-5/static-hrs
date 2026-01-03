@@ -454,7 +454,11 @@ export const addContact = (contact) => {
  * Get all parents/testimonials
  */
 export const getAllParents = () => {
-  return [...parentsData];
+  return parentsData.map((parent) => ({
+    ...parent,
+    photo: parent.image, // Map image to photo for consistency
+    testimonial: parent.review, // Map review to testimonial for consistency
+  }));
 };
 
 /**

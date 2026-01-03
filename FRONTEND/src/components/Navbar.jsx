@@ -23,7 +23,8 @@ const Navbar = () => {
   const contactInfo = {
     phone: "+91 90815 44225",
     email: "holyredeemereng@gmail.com",
-    facebookUrl: "https://www.facebook.com/p/Holy-Redeemer-School-Rajkot-61556159744247/",
+    facebookUrl:
+      "https://www.facebook.com/p/Holy-Redeemer-School-Rajkot-61556159744247/",
     instagramUrl: "https://www.instagram.com/holyredeemerschoolrajkot/",
     // linkedinUrl: "#",
   };
@@ -72,9 +73,13 @@ const Navbar = () => {
       {/* 🔹 Top Section */}
       <div className="flex items-center justify-between px-4 md:px-10 py-3">
         {/* Logo */}
-        <div className="flex items-center space-x-18">
-          <Link to="/">
-            <img src={logo} alt="Logo" className="h-15 md:h-19" />
+        <div className="flex items-center space-x-2 md:space-x-4 lg:space-x-6">
+          <Link to="/" className="flex-shrink-0">
+            <img
+              src={logo}
+              alt="Logo"
+              className="h-12 w-12 md:h-16 md:w-16 object-contain"
+            />
           </Link>
 
           <GradientText
@@ -83,7 +88,9 @@ const Navbar = () => {
             showBorder={false}
             className="custom-class"
           >
-            <h3 className="text-4xl">Holy Redeemer School</h3>
+            <h3 className="text-lg sm:text-2xl md:text-3xl lg:text-4xl font-bold">
+              Holy Redeemer School
+            </h3>
           </GradientText>
         </div>
 
@@ -104,10 +111,18 @@ const Navbar = () => {
             </a>
           </div>
           <div className="flex space-x-4 text-blue-900">
-            <a href={contactInfo.facebookUrl} aria-label="Facebook" target="blank">
+            <a
+              href={contactInfo.facebookUrl}
+              aria-label="Facebook"
+              target="blank"
+            >
               <Facebook size={18} />
             </a>
-            <a href={contactInfo.instagramUrl} aria-label="Instagram" target="blank">
+            <a
+              href={contactInfo.instagramUrl}
+              aria-label="Instagram"
+              target="blank"
+            >
               <Instagram size={18} />
             </a>
             {/* <a href={contactInfo.linkedinUrl} aria-label="LinkedIn">
